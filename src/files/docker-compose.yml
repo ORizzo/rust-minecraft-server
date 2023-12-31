@@ -1,0 +1,52 @@
+version: "3.8"
+
+services:
+  minecraft-gp22:
+    image: orizzo/minecraft-server-new:latest
+    ports:
+      - "25565:25565"
+      - "25575:25575"
+    environment:
+      EULA: "TRUE"
+      MEMORY: 10G
+      MAX_TICK_TIME: -1
+      RCON_PASSWORD: "GIVS4X8ZD38P9YHY"
+      ONLINE_MODE: "TRUE"
+      ENABLE_WHITELIST: "TRUE"
+      ENFORCE_WHITELIST: "TRUE"
+      VIEW_DISTANCE: 20
+      SERVER_NAME: "22WORLD"
+      VERSION: "1.20.2"
+    depends_on:
+      restore-backup:
+        condition: service_completed_successfully
+    volumes:
+      - ./minecraft-gp22:/data   
+  restore-backup:
+    image: itzg/mc-backup
+    entrypoint: restore-tar-backup
+    volumes:
+      - ./minecraft-gp22:/data
+      - ./mc-backups:/backups:ro
+  backups:
+    image: itzg/mc-backup
+    depends_on:
+      minecraft-gp22:
+        condition: service_healthy
+    environment:
+      BACKUP_INTERVAL: "30m"
+      PRUNE_BACKUPS_DAYS: 2
+      SRC_DIR: /data
+      PAUSE_IF_NO_PLAYERS: "TRUE"
+      RCON_HOST: minecraft-gp22
+      RCON_PASSWORD: "GIVS4X8ZD38P9YHY" 
+      PRE_BACKUP_SCRIPT: |
+        echo "Before backup!"
+        echo "Also before backup from $$RCON_HOST to $$DEST_DIR"
+      INITIAL_DELAY: 1m
+    volumes:
+      - ./minecraft-gp22:/data:ro
+      - ./mc-backups:/backup
+volumes:
+  minecraft-gp22: {} 
+  mc-backups: {}

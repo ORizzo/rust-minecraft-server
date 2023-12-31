@@ -1,0 +1,8 @@
+[package]
+name = "hello-rust"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+rand = "0.8.5"
+os_type="2.6"
