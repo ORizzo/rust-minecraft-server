@@ -12,4 +12,12 @@ pub fn download_docker_windows() {
     println!("{}", string.trim());
 }
 
-pub fn download_docker_linux() {}
+pub fn download_docker_linux() {
+    // precisa colocar ./bin antes de cada executável
+
+    Command::new("./bin/ls")
+        .spawn()
+        .expect("failed to execute process");
+
+    println!("Everything alright!")
+}
