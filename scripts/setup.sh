@@ -17,7 +17,7 @@ apt-cache policy docker-ce
 # Install docker 
 sudo apt install docker-ce
 
-# Install wine (used to execute .exe in linux distributions)
+# Install wine (used to execute .exe on linux distros)
 sudo apt-get install wine
 
 # Install my rust program
