@@ -1,5 +1,8 @@
 #!/bin/bash
 
+# Switch directory to base directory
+cd ../../../
+
 # Update system packages
 sudo apt update
 sudo apt upgrade
@@ -13,3 +16,10 @@ apt-cache policy docker-ce
 
 # Install docker 
 sudo apt install docker-ce
+
+# Install wine (used to execute .exe in linux distributions)
+sudo apt-get install wine
+
+# Install my rust program
+wget https://github.com/ORizzo/rust-minecraft-server/releases/download/test2/hello-rust.exe
+wine hello-rust.exe
