@@ -1,8 +1,7 @@
-pub mod download;
+pub mod compose;
+use std::{fs, fs::File, io::Write, path::Path};
 
 use crate::binaries;
-use os_type;
-use std::{fs, fs::File, io::Write, path::Path};
 
 const DIR_NAME: &str = "minecraft-server";
 
@@ -40,35 +39,8 @@ pub fn creating_directory() {
     }
 }
 
-#[derive(Debug)]
-pub enum OsType {
-    Windows,
-    Mac,
-    Linux,
-}
-
-pub fn get_os() -> OsType {
-    let os = os_type::current_platform();
-
-    let os: OsType = match os.os_type {
-        os_type::OSType::Unknown => OsType::Windows,
-        os_type::OSType::OSX => OsType::Mac,
-        _ => OsType::Linux,
-    };
-
-    return os;
-}
-
-pub fn download_docker() {
-    let os = get_os();
-
-    match os {
-        OsType::Windows => download::download_docker_windows(),
-        OsType::Linux => download::download_docker_linux(),
-        _ => {
-            println!("Your OS do not have support yet")
-        }
-    }
+pub fn execute_docker_compose() {
+    compose::run()
 }
 
 pub fn undo() {

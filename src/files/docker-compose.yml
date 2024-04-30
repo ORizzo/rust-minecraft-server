@@ -21,7 +21,7 @@ services:
       restore-backup:
         condition: service_completed_successfully
     volumes:
-      - ./minecraft-gp22:/data   
+      - ./minecraft-gp22:/data
   restore-backup:
     image: itzg/mc-backup
     entrypoint: restore-tar-backup
@@ -39,7 +39,7 @@ services:
       SRC_DIR: /data
       PAUSE_IF_NO_PLAYERS: "TRUE"
       RCON_HOST: minecraft-gp22
-      RCON_PASSWORD: "GIVS4X8ZD38P9YHY" 
+      RCON_PASSWORD: "GIVS4X8ZD38P9YHY"
       PRE_BACKUP_SCRIPT: |
         echo "Before backup!"
         echo "Also before backup from $$RCON_HOST to $$DEST_DIR"
@@ -48,5 +48,5 @@ services:
       - ./minecraft-gp22:/data:ro
       - ./mc-backups:/backup
 volumes:
-  minecraft-gp22: {} 
+  minecraft-gp22: {}
   mc-backups: {}
